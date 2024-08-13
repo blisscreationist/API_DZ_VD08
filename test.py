@@ -3,6 +3,7 @@ import requests
 
 app = Flask(__name__)
 
+
 @app.route('/', methods=['GET', 'POST'])
 def index():
     weather = None
@@ -19,11 +20,13 @@ def index():
 
     return render_template("index.html", weather=weather, news=news, quote=quote)
 
+
 def get_weather(city):
-    api_key = "039762cd926c00cbb8bf9ae0a4431af1"
+    api_key = "1d87d2d68644f3fc1339b0b241d0840d"
     url = f"https://api.openweathermap.org/data/2.5/weather?q={city}&appid={api_key}&units=metric"
     response = requests.get(url)
     return response.json()
+
 
 def get_news():
     api_key = "c2d88b70c2734e7ca28ae7bf4da6e9fa"
@@ -31,12 +34,14 @@ def get_news():
     response = requests.get(url)
     return response.json().get('articles', [])
 
+
 def get_random_quote():
     url = "https://api.quotable.io/random"
     response = requests.get(url)
     if response.status_code == 200:
         return response.json()
     return None
+
 
 if __name__ == '__main__':
     app.run(debug=True)
